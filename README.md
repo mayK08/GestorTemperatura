@@ -4,18 +4,18 @@ Este proyecto implementa una solución integral de IoT para el monitoreo de temp
 
 ## 🚀 Entregables del Proyecto
 
-### 1. Guarda de Temperaturas (Persistencia) - 33%
+### 1. Guarda de Temperaturas (Persistencia) 
 Se utiliza **Amazon DynamoDB** como base de datos NoSQL para el almacenamiento de telemetría en tiempo real. 
 - **Equivalencia:** Sustituye a Google Firestore.
 - **Estructura:** Tabla `TelemetriaRefrigerador` con `sensorId` (Partition Key) y `timestamp` (Sort Key).
 
-### 2. Verificación de Datos (Procesamiento) - 33%
+### 2. Verificación de Datos (Procesamiento) 
 Implementado mediante **AWS Lambda** y **Amazon SNS**.
 - **Equivalencia:** Sustituye a Google Cloud Functions.
 - **Lógica de Negocio:** La función valida si la temperatura excede los 4.5°C. Incluye "Inteligencia de Borde" donde el sensor aumenta su frecuencia de envío ante alertas críticas.
 - **Escalamiento:** Envío de notificaciones automáticas vía correo electrónico.
 
-### 3. Dashboard Real-Time (Visualización) - 33%
+### 3. Dashboard Real-Time (Visualización)
 Interfaz web desarrollada en HTML5/JavaScript que consume una **Lambda Function URL**.
 - **Equivalencia:** Sustituye a Google Cloud Run.
 - **Funcionalidad:** Actualización asíncrona (AJAX/Fetch) cada 3 segundos sin recarga de página.
