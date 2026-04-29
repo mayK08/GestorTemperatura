@@ -1,4 +1,4 @@
-# Mykonnect - Sistema de Monitoreo Inteligente de Cadena de Frío
+# Sistema de Monitoreo Inteligente de Cadena de Frío
 
 Este proyecto implementa una solución integral de IoT para el monitoreo de temperaturas en cámaras frías (carnicerías y abarrotes) en Sonora, México. La arquitectura está diseñada en AWS como alternativa escalable y profesional a Google Cloud Platform.
 
