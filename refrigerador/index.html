@@ -1,0 +1,54 @@
+<!DOCTYPE html>
+<html lang="es">
+<head>
+    <meta charset="UTF-8">
+    <title>Mykonnect - Dashboard Real-Time</title>
+    <style>
+        body { font-family: 'Segoe UI', sans-serif; background-color: #1E3A8A; color: white; text-align: center; padding-top: 50px; }
+        .card { background: white; color: #333; width: 350px; margin: 0 auto; padding: 25px; border-radius: 15px; box-shadow: 0 8px 20px rgba(0,0,0,0.3); }
+        .temp { font-size: 64px; font-weight: bold; color: #3B82F6; }
+        .status { font-weight: bold; margin-top: 10px; padding: 10px; border-radius: 5px; }
+        .normal { background: #d4edda; color: #155724; }
+        .critico { background: #f8d7da; color: #721c24; }
+    </style>
+</head>
+<body>
+    <h1>Panel de Monitoreo Mykonnect</h1>
+    <div class="card">
+        <h2 id="sensorId">Cargando...</h2>
+        <div class="temp" id="lectura">--.-°C</div>
+        <div id="statusBox" class="status">Sincronizando con AWS...</div>
+        <p style="font-size: 12px; color: #666;" id="time"></p>
+    </div>
+
+    <script>
+        // PEGA TU URL DE LAMBDA ABAJO
+        const API_URL = "https://kcku7whproemc754x2dkgvvtli0brrus.lambda-url.us-east-1.on.aws/";
+
+        async function actualizar() {
+            try {
+                const res = await fetch(API_URL);
+                const data = await res.json();
+                
+                document.getElementById('lectura').innerText = data.temperatura + "°C";
+                document.getElementById('sensorId').innerText = data.sensorId;
+                document.getElementById('time').innerText = "Última actualización: " + new Date(data.timestamp).toLocaleTimeString();
+
+                const box = document.getElementById('statusBox');
+                if (data.temperatura > 4.5) {
+                    box.innerText = "⚠️ ESTADO CRÍTICO";
+                    box.className = "status critico";
+                } else {
+                    box.innerText = "✅ FUNCIONAMIENTO NORMAL";
+                    box.className = "status normal";
+                }
+            } catch (err) {
+                console.error("Error:", err);
+            }
+        }
+
+        setInterval(actualizar, 3000);
+        actualizar();
+    </script>
+</body>
+</html>
